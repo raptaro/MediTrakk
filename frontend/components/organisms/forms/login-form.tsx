@@ -1,5 +1,5 @@
 "use client";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -61,20 +61,22 @@ export default function LoginForm() {
 
       // Decode the token to check if the user is admin
 
-
       const decoded: DecodedToken = jwtDecode(data.access);
       console.log("Decoded token:", decoded);
-      
+
       // Check for admin role either via a role field or by is_superuser flag
-      if (decoded.is_superuser || decoded.role?.toLocaleLowerCase() === "admin") {
+      if (
+        decoded.is_superuser ||
+        decoded.role?.toLocaleLowerCase() === "admin"
+      ) {
         // Redirect to admin dashboard
-        window.location.href = "/superadmin";
+        window.location.href = "/admin";
       } else if (decoded.role?.toLocaleLowerCase() === "doctor") {
         // Redirect to doctor dashboard
-        window.location.href = "/admin";
+        window.location.href = "/doctor";
       } else if (decoded.role?.toLocaleLowerCase() === "secretary") {
         // Redirect to doctor dashboard
-        window.location.href = "/admin";
+        window.location.href = "/secretary";
       } else {
         // Redirect to standard dashboard or page for other users
         window.location.href = "/dashboard";
